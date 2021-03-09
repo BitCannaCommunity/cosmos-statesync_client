@@ -1,3 +1,5 @@
+# Please note that this doesn't work with the current BCNA chain !!!!!
+
 # State Sync - client script
 Script to bootstrap the syncing when a new peer/validator join to BitCanna-Cosmos
 
