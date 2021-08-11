@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v0.2-beta/bcnad"
+GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/public-testnet/genesis.json"
 # Based on the work of Joe (Chorus-One) for Microtick - https://github.com/microtick/bounties/tree/main/statesync
 read -p "BCNA folder, your keys and config will be erased, proced (y/n)? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -7,11 +9,11 @@ then
   # BitCanna State Sync client config.
   rm -f bcnad #deletes a previous downloaded binary
   rm -rf $HOME/.bcna/ #deletes previous installation   
-  wget -nc https://github.com/BitCannaGlobal/bcna/releases/download/v0.2-beta/bcnad
+  wget -nc $BINARY
   chmod +x bcnad
   ./bcnad init New_peer --chain-id bitcanna-testnet-6
   rm -rf $HOME/./bcnad/config/genesis.json #deletes the default created genesis
-  wget https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/public-testnet/genesis.json > $HOME/.bcna/config/genesis.json
+  curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   # At this moment: config state sync & launch the syncing (all previous config need to be performed) 
 
   DOMAIN_1=seed1.bitcanna.io
