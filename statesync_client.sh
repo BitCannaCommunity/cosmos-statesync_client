@@ -6,7 +6,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
   # BitCanna State Sync client config.
   rm -f bcnad #deletes a previous downloaded binary
-  rm -rf $HOME/.bcnad/ #deletes previous installation   
+  rm -rf $HOME/.bcna/ #deletes previous installation   
   wget -nc https://github.com/BitCannaGlobal/bcna/releases/download/v0.2-beta/bcnad
   chmod +x bcnad
   ./bcnad init New_peer --chain-id bitcanna-testnet-6
