@@ -1,12 +1,11 @@
-# Please note that this doesn't work with the current BCNA chain
+# Based on the work of Joe (Chorus-One) for Microtick - https://github.com/microtick/bounties/tree/main/statesync
 
 # BitCanna State Sync client config.
-
-## ToDo: download, configuring and syncing a complete peer from the scratch
-#wget http://to.do/bcnad
+rm -f bcnad #deletes a previous downloaded binary
+wget -nc https://github.com/BitCannaGlobal/bcna/releases/download/v0.2-beta/bcnad
 chmod +x bcnad
-bcnad init New_peer chain-id bitcanna
-wget http://testnet.-.es/genesis.json 
+./bcnad init New_peer chain-id bitcanna-testnet-6
+wget -nc https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/public-testnet/genesis.json
 mv genesis.json $HOME/.bcna/config/
 # At this moment: config state sync & launch the syncing (all previous config need to be performed) 
 
@@ -44,6 +43,7 @@ s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
 s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:$P2P_PORT1,${NODE2_ID}@${NODE2_IP}:$P2P_PORT2\"|" $HOME/./bcnad/config/config.toml
 
 
-bcnad unsafe-reset-all
+./bcnad unsafe-reset-all
 rm -f $HOME/./bcnad/config/addrbook.json
-bcnad start
+./bcnad start
+echo If your node is synced considerate to create a service file. 
