@@ -16,7 +16,7 @@ then
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   # At this moment: config state sync & launch the syncing (all previous config need to be performed) 
 
-  DOMAIN_1=seed1.bitcanna.io
+  DOMAIN_1=159.65.198.245
   NODE1_IP=$(dig $DOMAIN_1 +short)
   RPC1="http://$NODE1_IP"
   P2P_PORT1=26656
@@ -28,7 +28,7 @@ then
   RPC_PORT2=16657
   P2P_PORT2=16656
 
-  NODE3_IP=159.65.198.245 
+  NODE3_IP=seed1.bitcanna.io
   RPC3="http://$NODE3_IP"
   RPC_PORT3=26657
   P2P_PORT3=26656
