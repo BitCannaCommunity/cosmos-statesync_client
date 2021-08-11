@@ -4,7 +4,7 @@
 rm -f bcnad #deletes a previous downloaded binary
 wget -nc https://github.com/BitCannaGlobal/bcna/releases/download/v0.2-beta/bcnad
 chmod +x bcnad
-./bcnad init New_peer chain-id bitcanna-testnet-6
+./bcnad init New_peer --chain-id bitcanna-testnet-6
 wget -nc https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/public-testnet/genesis.json
 mv genesis.json $HOME/.bcna/config/
 # At this moment: config state sync & launch the syncing (all previous config need to be performed) 
