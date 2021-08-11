@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 # Based on the work of Joe (Chorus-One) for Microtick - https://github.com/microtick/bounties/tree/main/statesync
 
 # BitCanna State Sync client config.
@@ -9,9 +11,6 @@ wget -nc https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/ma
 mv genesis.json $HOME/.bcna/config/
 # At this moment: config state sync & launch the syncing (all previous config need to be performed) 
 
-
-#!/bin/bash
-set -e
 
 RPC1=seed1.bitcanna.io
 P2P_PORT1=26656
@@ -40,7 +39,7 @@ sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"$RPC1,$RPC2\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:$P2P_PORT1,${NODE2_ID}@${NODE2_IP}:$P2P_PORT2\"|" $HOME/./bcnad/config/config.toml
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:$P2P_PORT1,${NODE2_ID}@${NODE2_IP}:$P2P_PORT2\"|" $HOME/.bcnad/config/config.toml
 
 
 ./bcnad unsafe-reset-all
