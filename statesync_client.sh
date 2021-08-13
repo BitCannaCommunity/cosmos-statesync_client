@@ -14,9 +14,8 @@ then
   ./bcnad init New_peer --chain-id bitcanna-testnet-6
   rm -rf $HOME/./bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
-  # At this moment: config state sync & launch the syncing (all previous config need to be performed) 
-
-  #DOMAIN_1=seed1.bitcanna.io
+  
+  #DOMAIN_1=seed1.bitcanna.io 
   #NODE1_IP=$(dig $DOMAIN_1 +short)
   NODE1_IP="178.128.247.173"
   RPC1="http://$NODE1_IP"
