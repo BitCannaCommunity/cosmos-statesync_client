@@ -1,28 +1,28 @@
-# Please note that this doesn't work with the current BCNA chain !!!!!
-
 # State Sync - client script
 Script to bootstrap the syncing when a new peer/validator join to BitCanna-Cosmos
 
 ## The problem...
-When a new peer try to join to a running chain maybe could take days to sync completly
+When a new peer tries to join a running chain it can take days to fully synchronise and this can take up a huge amount of disk space.
 
 ## The solution...
-Deploying the new State Sync function on seed servers could help to boost the sync of new peers/validators.
-Bitcanna seeds server will include this function from MainNet block 1
+Deploying the new State Sync function on StateSync servers could help to boost the sync of new peers/validators. And it reduces the disk space usage.
+Bitcanna StateSync servers will include this function from MainNet start. 
 
 ## Usage
 Before executing the script, configure the client as described at http://to.do. But don't start the BitCanna daemon manually, the script will do for you and will sync the whole chain. Press CTRL + C to stop it when you see the peer synced with last block.
 
 
-Download the script:
+* Download the script:
 
 ```
 wget https://raw.githubusercontent.com/BitCannaCommunity/statesync_client/main/statesync_client.sh
 chmod +x statesync_client.sh
 ```
 
-As a previous step before launch the script, edit it with `nano` tool and change the rpc_peers if it needed. 
+### As a previous step before launch the script, edit it with `nano` tool and change the rpc StateSync peers if it needed. 
 * Then launch the script (CTLR + C to stop it):
-`statesync_client.sh`
-
-
+```
+./statesync_client.sh
+```
+### When your peer is upgraded, set up a service file as described in this guide (Step 1 - substep 9)
+https://github.com/BitCannaGlobal/testnet-bcna-cosmos/blob/main/instructions/public-testnet/validator-guides/task1.md#step-1---setting-up-the-connection
