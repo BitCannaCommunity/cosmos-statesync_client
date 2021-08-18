@@ -9,7 +9,11 @@ Deploying the new State Sync function on StateSync servers could help to boost t
 Bitcanna StateSync servers will include this function from MainNet start. 
 
 ## Usage
-Before executing the script, configure the client as described at http://to.do. But don't start the BitCanna daemon manually, the script will do for you and will sync the whole chain. Press CTRL + C to stop it when you see the peer synced with last block.
+Only for new deployings. **Backup your `~/.bcna/config` folder if you store your private keys there!!**
+
+This script will download the binary and the genesis by you and will setup the peers and seeds.  
+
+Don't start the BitCanna daemon manually, the script will do for you and will sync the whole chain. Press CTRL + C to stop it when you see the peer synced with last block.
 
 
 * Download the script:
