@@ -11,7 +11,7 @@ set -e
 
 # Change for your custom chain
 BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v0.3-beta/bcnad"
-GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/public-testnet/genesis.json"
+GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/pre-swap/genesis.json"
 APP="BCNA: ~/.bcna"
 
 read -p "$APP folder, your keys and config will be erased, proced (y/n)? " -n 1 -r
