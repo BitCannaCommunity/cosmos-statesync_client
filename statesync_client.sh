@@ -72,7 +72,7 @@ then
   s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:16656\"|" $HOME/.bcna/config/config.toml
 
  
-  sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.01bcna\"/' $HOME/.bcna/config/app.toml
+  sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.01ubcna\"/' $HOME/.bcna/config/app.toml
 
   ./bcnad unsafe-reset-all
   ./bcnad start
