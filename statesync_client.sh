@@ -10,7 +10,7 @@
 set -e
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v0.3-beta/bcnad"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v0.4-beta/bcnad"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/pre-swap/genesis.json"
 APP="BCNA: ~/.bcna"
 
@@ -22,7 +22,7 @@ then
   rm -rf $HOME/.bcna/ #deletes previous installation   
   wget -nc $BINARY
   chmod +x bcnad
-  ./bcnad init New_peer --chain-id bitcanna-testnet-7
+  ./bcnad init New_peer --chain-id bitcanna-testnet-9
   rm -rf $HOME/./bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
