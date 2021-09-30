@@ -10,8 +10,8 @@
 set -e
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v0.4-beta/bcnad"
-GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/testnet-bcna-cosmos/main/instructions/pre-swap/genesis.json"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.0/bcnad"
+GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
 
 read -p "$APP folder, your keys and config will be erased, proced (y/n)? " -n 1 -r
@@ -22,7 +22,7 @@ then
   rm -rf $HOME/.bcna/ #deletes previous installation   
   wget -nc $BINARY
   chmod +x bcnad
-  ./bcnad init New_peer --chain-id bitcanna-testnet-9
+  ./bcnad init New_peer --chain-id bitcanna-1
   rm -rf $HOME/./bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
@@ -69,10 +69,10 @@ then
   s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
   s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
   s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"| ; \
-  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:16656\"|" $HOME/.bcna/config/config.toml
+  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656\"|" $HOME/.bcna/config/config.toml
 
  
-  sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.01ubcna\"/' $HOME/.bcna/config/app.toml
+  sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
 
   ./bcnad unsafe-reset-all
   ./bcnad start
