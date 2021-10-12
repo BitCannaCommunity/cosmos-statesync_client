@@ -23,7 +23,7 @@ then
   wget -nc $BINARY
   chmod +x bcnad
   ./bcnad init New_peer --chain-id bitcanna-1
-  rm -rf $HOME/./bcnad/config/genesis.json #deletes the default created genesis
+  rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
   NODE1_IP="178.62.236.228"
