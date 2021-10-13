@@ -10,7 +10,7 @@
 set -e
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.1/bcnad"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.2/bcnad"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
 
