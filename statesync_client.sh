@@ -26,7 +26,7 @@ then
   rm -rf $HOME/.bcnad/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.bcna/config/genesis.json
   
-  NODE1_IP="178.62.236.228"
+  NODE1_IP="206.189.9.95"
   RPC1="http://$NODE1_IP"
   P2P_PORT1=26656
   RPC_PORT1=26657
@@ -46,7 +46,7 @@ then
   INTERVAL=1000
 
   LATEST_HEIGHT=$(curl -s $RPC1:$RPC_PORT1/block | jq -r .result.block.header.height);
-  BLOCK_HEIGHT=$((($(($LATEST_HEIGHT / $INTERVAL)) -1) * $INTERVAL)); #Mark addition
+  BLOCK_HEIGHT=$((($(($LATEST_HEIGHT / $INTERVAL)) -10) * $INTERVAL)); #Mark addition
   
   if [ $BLOCK_HEIGHT -eq 0 ]; then
     echo "Error: Cannot state sync to block 0; Latest block is $LATEST_HEIGHT and must be at least $INTERVAL; wait a few blocks!"
