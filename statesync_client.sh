@@ -16,6 +16,7 @@ GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json
 APP="BCNA: ~/.bcna"
 echo "Welcome to the StateSync script. This script will backup your config, move the current .bcna folder to .old_bcna, sync the last state and restore the previous config. 
 You should have a crypted backup of your wallet keys, your node keys and your validator keys, anyway the script will make a clear backup of the last two. Ensure that you can restore your wallet keys if is needed."
+read -p "have you stopped the BCNAD service? CTRL + C to exit or any key to continue..."
 read -p "$APP folder, your keys and config will be erased, a backup will be made, PROCED (y/n)? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
