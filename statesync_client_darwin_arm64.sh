@@ -14,10 +14,9 @@ export DATE_BACKUP=`date +"%d_%m_%Y-%H_%M"`
 BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.2/bcnad_darwin_arm64"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
-echo "Welcome to the StateSync script. This script will backup your configuration, delete the current .bcna folder, sync the last state, and restore the previous configuration. 
-You should have a crypted backup of your wallet keys, your node keys and your validator keys, even so, the script will make a backup of the node and validator keys. 
-Please make sure you can restore your wallet keys if required."
-read -p "$APP folder, your keys and config will be erased, a backup will be made, PROCEED (y/n)? " -n 1 -r
+echo "Welcome to the StateSync script. This script will backup your config, move the current .bcna folder to .old_bcna, sync the last state and restore the previous config. 
+You should have a crypted backup of your wallet keys, your node keys and your validator keys, anyway the script will make a clear backup of the last two. Ensure that you can restore your wallet keys if is needed."
+read -p "$APP folder, your keys and config will be erased, a backup will be made, PROCED (y/n)? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   # BitCanna State Sync client config.
@@ -25,9 +24,16 @@ then
   echo " Making a backup from .bcna config files if exist"
   echo ##################################################
   cd ~
-  tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
-  rm -f bcnad_darwin_arm64 #deletes a previous downloaded binary
-  rm -rf $HOME/.bcna/ #deletes previous installation   
+  if [ -d ~/.bcna ];
+  then
+    echo "There is a BCNA folder there... taking a backup and moving to .old_bcna"
+    tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/cs.wal" --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
+    mv .bcna .old_bcna
+  fi
+  if [ -f ~/bcnad ];
+  then
+    rm -f bcnad_darwin_arm64 #deletes a previous downloaded binary
+  fi
   wget -nc $BINARY
   chmod +x bcnad_darwin_arm64
   mv bcnad_darwin_arm64 bcnad
@@ -85,11 +91,11 @@ then
 
   ./bcnad unsafe-reset-all
   ./bcnad start
-   echo
-   echo
-   echo "Waiting 10 seconds... your backup will be restored with your previous data.... and BCNAD will start again to test it."
+   echo 
+   echo Waiting 10 seconds... your backup will be restored with your previous data.... and BCNAD will start again to test it.
    sleep 10
   tar -xzvf bcna_folder_backup_$DATE_BACKUP.tgz
    ./bcnad start
    echo If your node is synced considerate to create a service file. Be careful, your backup file is not crypted!
+   echo If process was sucessful you can delete .old_bcna
 fi
