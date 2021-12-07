@@ -8,16 +8,24 @@
 #     pruning = "nothing"
 
 set -e
+export DATE_BACKUP=`date +"%d_%m_%Y-%H_%M"`
 
 # Change for your custom chain
 BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.2/bcnad"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
-
-read -p "$APP folder, your keys and config will be erased, proced (y/n)? " -n 1 -r
+echo "Welcome to the StateSync script. This script will backup your configuration, delete the current .bcna folder, sync the last state, and restore the previous configuration. 
+You should have a crypted backup of your wallet keys, your node keys and your validator keys, even so, the script will make a backup of the node and validator keys. 
+Please make sure you can restore your wallet keys if required."
+read -p "$APP folder, your keys and config will be erased, a backup will be made, PROCEED (y/n)? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   # BitCanna State Sync client config.
+  echo ##################################################
+  echo " Making a backup from .bcna config files if exist"
+  echo ##################################################
+  cd ~
+  tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
   rm -f bcnad #deletes a previous downloaded binary
   rm -rf $HOME/.bcna/ #deletes previous installation   
   wget -nc $BINARY
@@ -72,9 +80,15 @@ then
   s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:26656\"|" $HOME/.bcna/config/config.toml
 
  
-  sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
+  sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
 
   ./bcnad unsafe-reset-all
   ./bcnad start
-   echo If your node is synced considerate to create a service file. 
+   echo
+   echo
+   echo "Waiting 10 seconds... your backup will be restored with your previous data.... and BCNAD will start again to test it."
+   sleep 10
+  tar -xzvf bcna_folder_backup_$DATE_BACKUP.tgz
+   ./bcnad start
+   echo If your node is synced considerate to create a service file. Be careful, your backup file is not crypted!
 fi
