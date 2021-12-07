@@ -29,10 +29,12 @@ then
     echo "There is a BCNA folder there... taking a backup and moving to .old_bcna"
     tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/cs.wal" --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
     mv .bcna .old_bcna
+    echo "Let's try to stop the BCNAD Service, maybe is running..."
+    sudo service bcnad stop
   fi
   if [ -f ~/bcnad ];
   then
-    rm -f bcnad_darwin_arm64 #deletes a previous downloaded binary
+    rm -f bcnad #deletes a previous downloaded binary
   fi
   wget -nc $BINARY
   chmod +x bcnad
