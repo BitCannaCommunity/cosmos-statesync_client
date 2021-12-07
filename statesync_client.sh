@@ -29,9 +29,13 @@ then
   then
     echo "There is a BCNA folder there... taking a backup and moving to .old_bcna"
     tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/cs.wal" --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
-    mv .bcna .old_bcna
-    echo "Let's try to stop the BCNAD Service, maybe is running..."
-    sudo service bcnad stop
+    if [ -d ~/.old_bcna ];
+
+    then 
+      echo Folder .old_bcna exist, will maintain this old folder.
+    else
+      mv .bcna .old_bcna
+    fi
   fi
   if [ -f ~/bcnad ];
   then
