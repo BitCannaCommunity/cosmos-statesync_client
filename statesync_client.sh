@@ -25,7 +25,7 @@ then
   echo " Making a backup from .bcna config files if exist"
   echo ##################################################
   cd ~
-  tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
+  tar cvfz bcna_folder_backup_$DATE_BACKUP.tgz --exclude=".bcna/data/cs.wal" --exclude=".bcna/data/application.db" --exclude=".bcna/data/blockstore.db" --exclude=".bcna/data/evidence.db" --exclude=".bcna/data/snapshots" --exclude=".bcna/data/state.db"   --exclude=".bcna/data/tx_index.db" .bcna/*
   rm -f bcnad #deletes a previous downloaded binary
   rm -rf $HOME/.bcna/ #deletes previous installation   
   wget -nc $BINARY
