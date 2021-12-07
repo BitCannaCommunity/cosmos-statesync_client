@@ -33,6 +33,7 @@ then
 
     then 
       echo Folder .old_bcna exist, will maintain this old folder.
+      rm  -rf .bcna
     else
       mv .bcna .old_bcna
     fi
