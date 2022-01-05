@@ -37,6 +37,9 @@ then
     else
       mv .bcna .old_bcna
     fi
+  else
+      echo "New installation...."
+      touch ~/.new_installation
   fi
   if [ -f ~/bcnad ];
   then
@@ -98,10 +101,16 @@ then
 
   ./bcnad unsafe-reset-all
   ./bcnad start
+   if [ -f ~/.new_installation ];
+    then
+      rm -f .new_installation
+      sed -E -i 's/enable = \".*\"/enable = \"false\"/' $HOME/.bcna/config/config.toml
+   else
    echo 
    echo Waiting 10 seconds... your backup will be restored with your previous data.... and BCNAD will start again to test it.
    sleep 10
-  tar -xzvf bcna_folder_backup_$DATE_BACKUP.tgz
+   tar -xzvf bcna_folder_backup_$DATE_BACKUP.tgz
+   fi
    ./bcnad start
    echo If your node is synced considerate to create a service file. Be careful, your backup file is not crypted!
    echo If process was sucessful you can delete .old_bcna
