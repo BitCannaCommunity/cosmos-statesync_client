@@ -104,7 +104,7 @@ then
    if [ -f ~/.new_installation ];
     then
       rm -f .new_installation
-      sed -E -i 's/enable = \".*\"/enable = \"false\"/' $HOME/.bcna/config/config.toml
+      sed 's/enable = true/enable = false/' $HOME/.bcna/config/config.toml
    else
    echo 
    echo Waiting 10 seconds... your backup will be restored with your previous data.... and BCNAD will start again to test it.
