@@ -10,12 +10,13 @@ StateSync is a feature which would allow a new node to receive a snapshot of the
 Bitcanna StateSync servers will include this function in mainnet. 
 
 ## Usage
-Only for new deployings. **Backup your `~/.bcna/config` folder if you store your private keys there!!**
 
 This script will download the binary and the genesis by you and will setup the peers and seeds.  
 
-Don't start the BitCanna daemon manually, the script will do it for you and will synchronize the whole chain. Press CTRL + C to stop it when you see the peer synced with last block.
+Don't start the BitCanna daemon manually, the script will do it for you and will synchronize the whole chain. Press CTRL + C to stop it when you see the peer synced with last block
 
+If you are running a validator/peer, this script will save space in disk for you, will backup your current data and config folder and resync in several minutes.
+**Very important**, daemon should turned off if is not a clean installation.
 
 * Download the script:
 
@@ -29,5 +30,9 @@ chmod +x statesync_client.sh
 ```
 ./statesync_client.sh
 ```
-### When your peer is upgraded, set up a service file as described in this guide (Step 1 - substep 9)
-https://github.com/BitCannaGlobal/testnet-bcna-cosmos/blob/main/instructions/public-testnet/validator-guides/task1.md#step-1---setting-up-the-connection
+
+### When your peer is upgraded, set up a service file as described in this guide (Step 1 - substep 
+https://github.com/BitCannaGlobal/bcna/blob/main/instructions.md
+
+### DISCLAIMER:
+This script is experimental, StateSync is experimental, run it at your own risk, make your own backups of the configuration and do not run it before reading the contents of the script.
