@@ -100,6 +100,10 @@ then
   sed -E -i -s 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.001ubcna\"/' $HOME/.bcna/config/app.toml
 
   ./bcnad unsafe-reset-all
+  echo ##################################################################
+  echo "PLEASE HIT CTRL+C WHEN THE CHAIN IS SYNCED, Wait the last block"
+  echo ##################################################################
+  sleep 5
   ./bcnad start
    if [ -f ~/.new_installation ];
     then
@@ -108,6 +112,8 @@ then
    else
    echo 
    echo Waiting 10 seconds... your backup will be restored with your previous data.... and BCNAD will start again to test it.
+   echo .
+   echo HIT CTLR+C when last block is synced again.
    sleep 10
    tar -xzvf bcna_folder_backup_$DATE_BACKUP.tgz
    fi
