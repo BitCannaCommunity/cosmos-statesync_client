@@ -11,7 +11,7 @@ set -e
 export DATE_BACKUP=`date +"%d_%m_%Y-%H_%M"`
 
 # Change for your custom chain
-BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v1.3.1/bcnad"
+BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v.1.3.1/bcnad"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
 echo "Welcome to the StateSync script. This script will backup your config, move the current .bcna folder to .old_bcna, sync the last state and restore the previous config. 
