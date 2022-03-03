@@ -25,13 +25,13 @@ wget https://raw.githubusercontent.com/BitCannaCommunity/statesync_client/main/s
 chmod +x statesync_client.sh
 ```
 
-### As a previous step before launch the script, edit it with `nano` tool and change the rpc StateSync peers if it is needed. 
+### As a previous step before launch the script, STOP your `bcnad` daemon or `cosmovisor` if you already was running a peer/validator.
 * Then launch the script (CTLR + C to stop it):
 ```
 ./statesync_client.sh
 ```
 
-### When your peer is upgraded, set up a service file as described in this guide (Step 1 - substep 
+### When your peer is upgraded, set up a service file as described in this guide (Step 1 - avoiding sync instructions)
 https://github.com/BitCannaGlobal/bcna/blob/main/instructions.md
 
 ### DISCLAIMER:
