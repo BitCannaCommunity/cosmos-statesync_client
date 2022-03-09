@@ -18,10 +18,11 @@ Don't start the BitCanna daemon manually, the script will do it for you and will
 If you are running a validator/peer, this script will save space in disk for you, will backup your current data and config folder and resync in several minutes.
 **Very important**, daemon should turned off if is not a clean installation.
 
-* Download the script:
+* Install `jq` and download the script:
 
 ```
-wget https://raw.githubusercontent.com/BitCannaCommunity/statesync_client/main/statesync_client.sh
+sudo apt install jq
+wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client.sh
 chmod +x statesync_client.sh
 ```
 
@@ -31,8 +32,37 @@ chmod +x statesync_client.sh
 ./statesync_client.sh
 ```
 
-### When your peer is upgraded, set up a service file as described in this guide (Step 1 - avoiding sync instructions)
-https://github.com/BitCannaGlobal/bcna/blob/main/instructions.md
+### When your peer is synced, set up a service file if you hadn't it previously.
+Setup `bcnad` systemd service (copy and paste all to create the file service):
+```
+    cd $HOME
+    echo "[Unit]
+    Description=BitCanna Node
+    After=network-online.target
+    [Service]
+    User=${USER}
+    ExecStart=$(which bcnad) start
+    Restart=always
+    RestartSec=3
+    LimitNOFILE=4096
+    [Install]
+    WantedBy=multi-user.target
+    " >bcnad.service
+```
+    
+Enable and activate the BCNAD service.
+
+```
+    sudo mv bcnad.service /lib/systemd/system/
+    sudo systemctl enable bcnad.service && sudo systemctl start bcnad.service
+```
+Check the logs to see if it is working:
+    ```
+    sudo journalctl -u bcnad -f
+    ``` 
+
+### If you want to run a validator see this guide:
+https://github.com/BitCannaGlobal/bcna/blob/main/README.md#3Create-a-validator
 
 ### DISCLAIMER:
-This script is experimental, StateSync is experimental, run it at your own risk, make your own backups of the configuration and do not run it before reading the contents of the script.
+This script is experimental, StateSync is experimental, run it at your own risk, make your own backups of the configuration and do not run it before reading and understanding the contents of the script.
