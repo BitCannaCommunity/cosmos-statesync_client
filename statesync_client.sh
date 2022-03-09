@@ -7,6 +7,14 @@
 # Pruning should be fine tuned also, for this testings is set to nothing
 #     pruning = "nothing"
 
+# Let's check if JQ tool is installed
+FILE=$(which jq)
+ if [ -f "$FILE" ]; then
+ echo "JQ is present"
+ else
+ echo "$FILE JQ tool does not exist, install with: sudo apt install jq"
+ fi
+
 set -e
 export DATE_BACKUP=`date +"%d_%m_%Y-%H_%M"`
 
