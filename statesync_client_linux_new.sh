@@ -21,8 +21,10 @@ set -e
 BINARY="https://github.com/BitCannaGlobal/bcna/releases/download/v.1.3.1/bcnad"
 GENESIS="https://raw.githubusercontent.com/BitCannaGlobal/bcna/main/genesis.json"
 APP="BCNA: ~/.bcna"
-echo "Welcome to the StateSync script. This script will download the last binary and it will sync the last state. DON'T USE WITH A EXISTENT peer/validator config will be erased.
-You should have a crypted backup of your wallet keys, your node keys and your validator keys. Ensure that you can restore your wallet keys if is needed."
+echo "Welcome to the StateSync script. This script will download the last binary and it will sync the last state. 
+DON'T USE WITH A EXISTENT peer/validator config will be erased.
+You should have a crypted backup of your wallet keys, your node keys and your validator keys. 
+Ensure that you can restore your wallet keys if is needed."
 read -p "have you stopped the BCNAD service? CTRL + C to exit or any key to continue..."
 read -p "$APP folder, your keys and config WILL BE ERASED, it's ok if you want to build a peer/validator for first time, PROCED (y/n)? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
