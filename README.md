@@ -9,32 +9,33 @@ StateSync is a feature which would allow a new node to receive a snapshot of the
 
 Bitcanna StateSync servers will include this function in mainnet. 
 
-## Usage
+## There are two State Sync scripts: 
+* For to sync a new peer/validator: `statesync_client_linux_new.sh`
+* For to sync an existent peer/validator: `statesync_client_linux_backup.sh`
 
-This script will download the binary and the genesis by you and will setup the peers and seeds.  
+# Start to sync a new peer/validator 
+We asume you are not running a validator or simple node so far.
 
-Don't start the BitCanna daemon manually, the script will do it for you and will synchronize the whole chain. Press CTRL + C to stop it when you see the peer synced with last block
+1. Install `jq` and download the script:
 
-If you are running a validator/peer, this script will save space in disk for you, will backup your current data and config folder and resync in several minutes.
-**Very important**, daemon should turned off if is not a clean installation.
+    ```
+    sudo apt install jq
+    wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client_linux_new.sh
+    chmod +x statesync_client_linux_new.sh
+    ```
 
-* Install `jq` and download the script:
-
-```
-sudo apt install jq
-wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client.sh
-chmod +x statesync_client.sh
-```
-
-### As a previous step before launch the script, STOP your `bcnad` daemon or `cosmovisor` if you already was running a peer/validator.
-* Then launch the script (CTLR + C to stop it):
-```
-./statesync_client.sh
-```
-
+2. Then launch the script (CTLR + C to stop it,):
+Read carefully the instructions displayed at screen when you run it:
+    ```
+    ./statesync_client_linux_new.sh
+    ```
 ### When your peer is synced, set up a service file if you hadn't it previously.
-Setup `bcnad` systemd service (copy and paste all to create the file service):
-```
+3. Move the binary to the system path:
+    ```
+    sudo mv .bcnad /usr/local/bin/
+    ```
+4. Setup `bcnad` systemd service (copy and paste all to create the file service):
+    ```
     cd $HOME
     echo "[Unit]
     Description=BitCanna Node
@@ -48,15 +49,14 @@ Setup `bcnad` systemd service (copy and paste all to create the file service):
     [Install]
     WantedBy=multi-user.target
     " >bcnad.service
-```
+    ```
     
-Enable and activate the BCNAD service.
-
-```
+5. Enable and activate the BCNAD service.
+    ```
     sudo mv bcnad.service /lib/systemd/system/
     sudo systemctl enable bcnad.service && sudo systemctl start bcnad.service
-```
-Check the logs to see if it is working:
+    ```
+6. Check the logs to see if it is working:
     ```
     sudo journalctl -u bcnad -f
     ``` 
@@ -64,5 +64,41 @@ Check the logs to see if it is working:
 ### If you want to run a validator see this guide:
 https://github.com/BitCannaGlobal/bcna/blob/main/README.md#3Create-a-validator
 
-### DISCLAIMER:
+# Start to sync an existent peer/validator 
+
+Follow this instructions only if you are running currently a validator/peer.
+
+> It will reduces the disk space usage. From thousands of GB to MB maintaining your config and validator keys!
+
+Don't start the BitCanna daemon manually, the script will do it for you and will synchronize the whole chain. 
+
+Follow the instructions at the screen when the script starts. 
+Press CTRL + C to stop it when you see the peer synced with last block. It could takes some minutes (from 2 to 4 minutes)
+
+If you are running a validator/peer, this script will save space in disk for you, will backup your current data and config folder and resync in several minutes.
+
+> **Very important**, daemon should turned off if is not a clean installation and `jq` tool must be installed in the system.
+
+1. Install `jq` and download the script:
+
+    ```
+    sudo apt install jq
+    wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client_linux_with_backup.sh
+    chmod +x statesync_client_linux_with_backup.sh
+    ```
+
+2. Then launch the script (CTLR + C to stop it):
+    ```
+    ./statesync_client_linux_with_backup.sh
+    ```
+
+3. If everything goes right, you can delete the backup folder and the backup configuration
+    ```
+    rm -rf .old_bcna #deletes old folder to save space in hard disk
+    rm bcna_folder_backup_* #deletes backed config; you can also save it safely
+
+## DISCLAIMER:
 This script is experimental, StateSync is experimental, run it at your own risk, make your own backups of the configuration and do not run it before reading and understanding the contents of the script.
+
+
+###### tags: `doc` `github`
