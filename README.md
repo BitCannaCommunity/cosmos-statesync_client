@@ -11,7 +11,7 @@ Bitcanna StateSync servers will include this function in mainnet.
 
 ## There are two State Sync scripts: 
 * For to sync a new peer/validator: `statesync_client_linux_new.sh`
-* For to sync an existent peer/validator: `statesync_client_linux_backup.sh`
+* For to sync an existent peer/validator: `statesync_client_linux_existent.sh`
 
 # Start to sync a new peer/validator 
 We asume you are not running a validator or simple node so far.
@@ -64,16 +64,15 @@ Read carefully the instructions displayed at screen when you run it:
 ### If you want to run a validator see this guide:
 https://github.com/BitCannaGlobal/bcna/blob/main/README.md#3Create-a-validator
 
-# Start to sync an existent peer/validator 
+# Resync an existent peer/validator 
 
 Follow this instructions only if you are running currently a validator/peer.
 
 > It will reduces the disk space usage. From thousands of GB to MB maintaining your config and validator keys!
 
-Don't start the BitCanna daemon manually, the script will do it for you and will synchronize the whole chain. 
-
-Follow the instructions at the screen when the script starts. 
-Press CTRL + C to stop it when you see the peer synced with last block. It could takes some minutes (from 2 to 4 minutes)
+Follow the instructions at the screen when the script starts.
+Be patient, StateSync need some minutes (2 to 4) to fetch the good state.
+Press CTRL + C to stop it when you see the peer synced with last block. 
 
 If you are running a validator/peer, this script will save space in disk for you, will backup your current data and config folder and resync in several minutes.
 
@@ -83,20 +82,32 @@ If you are running a validator/peer, this script will save space in disk for you
 
     ```
     sudo apt install jq
-    wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client_linux_with_backup.sh
-    chmod +x statesync_client_linux_with_backup.sh
+    wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client_linux_with_existent.sh
+    chmod +x statesync_client_linux_with_existent.sh
     ```
 
-2. Then launch the script (CTLR + C to stop it):
+2. Clean the data folder to ensure a fresh resync and a new Address book.
+    * Cosmovisor
     ```
-    ./statesync_client_linux_with_backup.sh
+    cosmovisor run unsafe-reset-all
+    ```
+    * Bcnad daemon
+    ```
+    bcnad unsafe-reset-all
+    ```
+    
+3. Then launch the script to get the StateSync data:
+    ```
+    ./statesync_client_linux_with_existent.sh
     ```
 
-3. If everything goes right, you can delete the backup folder and the backup configuration
+4. Follow the instructions of the script, as recap: 
     ```
-    rm -rf .old_bcna #deletes old folder to save space in hard disk
-    rm bcna_folder_backup_* #deletes backed config; you can also save it safely
-
+    a) Replace the settings in `config.toml`
+    b) Run the daemon until is synced. Stop it.
+    c) Restore your previous settings at `config.toml`
+    d) Start again the daemon
+    
 ## DISCLAIMER:
 This script is experimental, StateSync is experimental, run it at your own risk, make your own backups of the configuration and do not run it before reading and understanding the contents of the script.
 
