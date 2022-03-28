@@ -11,7 +11,7 @@ Bitcanna StateSync servers will include this function in mainnet.
 
 ## There are two State Sync scripts: 
 * For to sync a new peer/validator: `statesync_client_linux_new.sh`
-* For to sync an existent peer/validator: `statesync_client_linux_existent.sh`
+* For to sync an existent peer/validator: `statesync_client_linux_existing.sh`
 
 # Start to sync a new peer/validator 
 We asume you are not running a validator or simple node so far.
@@ -82,8 +82,8 @@ If you are running a validator/peer, this script will save space in disk for you
 
     ```
     sudo apt install jq
-    wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client_linux_with_existent.sh
-    chmod +x statesync_client_linux_with_existent.sh
+    wget https://raw.githubusercontent.com/BitCannaGlobal/cosmos-statesync_client/main/statesync_client_linux_existing.sh
+    chmod +x statesync_client_linux_existing.sh
     ```
 
 2. Clean the data folder to ensure a fresh resync and a new Address book.
@@ -98,7 +98,7 @@ If you are running a validator/peer, this script will save space in disk for you
     
 3. Then launch the script to get the StateSync data:
     ```
-    ./statesync_client_linux_with_existent.sh
+    ./statesync_client_linux_existing.sh
     ```
 
 4. Follow the instructions of the script, as recap: 
